@@ -1,35 +1,33 @@
-// Predefined movie folder names and their paths
-const movies = {
-  "The Shawshank Redemption": "movies/The Shawshank Redemption/movie.jpg",
-  "The Godfather": "movies/The Godfather/movie.jpg",
-  "The Dark Knight": "movies/The Dark Knight/movie.jpg",
-  "Pulp Fiction": "movies/Pulp Fiction/movie.jpg",
-  "Forrest Gump": "movies/Forrest Gump/movie.jpg",
-  "Inception": "movies/Inception/movie.jpg",
-  "Fight Club": "movies/Fight Club/movie.jpg",
-  "The Matrix": "movies/The Matrix/movie.jpg",
-  "Goodfellas": "movies/Goodfellas/movie.jpg",
-  "Interstellar": "movies/Interstellar/movie.jpg"
-};
+let movieList = [];
+
+// Load movie names from JSON file
+fetch('movies.json')
+  .then(response => response.json())
+  .then(data => movieList = data)
+  .catch(error => console.error('Error loading movies:', error));
 
 function searchMovies() {
   const query = document.getElementById('searchBar').value.toLowerCase();
   const resultDiv = document.getElementById('result');
-  resultDiv.innerHTML = ''; // Clear previous result
+  resultDiv.innerHTML = ''; // Clear previous results
 
   if (query === '') return;
 
-  const movieName = Object.keys(movies).find(movie =>
+  const matchedMovies = movieList.filter(movie =>
     movie.toLowerCase().includes(query)
   );
 
-  if (movieName) {
-    const imagePath = movies[movieName];
-    resultDiv.innerHTML = `
-      <img src="${imagePath}" alt="${movieName}">
-      <p>${movieName}</p>
-    `;
+  if (matchedMovies.length > 0) {
+    matchedMovies.forEach(movie => {
+      const imagePath = `movies/${movie}/movie.jpg`; // Path to the movie image
+      resultDiv.innerHTML += `
+        <div>
+          <img src="${imagePath}" alt="${movie}" onerror="this.onerror=null; this.src='placeholder.jpg';">
+          <p>${movie}</p>
+        </div>
+      `;
+    });
   } else {
-    resultDiv.innerHTML = '<p>No movie found.</p>';
+    resultDiv.innerHTML = '<p>No movies found.</p>';
   }
 }
