@@ -45,13 +45,11 @@ function fetchDownloadLink(textFilePath, button) {
       return response.text();
     })
     .then(downloadLink => {
-      // Create a temporary link to download
       const tempLink = document.createElement('a');
       tempLink.href = downloadLink.trim();
-      tempLink.download = ''; // Use the file name from the download link
+      tempLink.download = '';
       tempLink.click();
 
-      // Update button text
       button.textContent = 'Downloading...';
       setTimeout(() => (button.textContent = 'Download'), 2000);
     })
