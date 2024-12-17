@@ -4,10 +4,9 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   font-family: 'Arial', sans-serif;
-  background: linear-gradient(to bottom right, #ff7eb3, #ff758c, #ff7eb3);
+  background: linear-gradient(to bottom right, #87CEEB, #90EE90); /* Sky Blue to Light Green */
   color: #333;
   text-align: center;
   margin: 0;
