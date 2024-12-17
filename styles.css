@@ -7,6 +7,9 @@
 body {
   font-family: 'Arial', sans-serif;
   background: linear-gradient(to bottom right, #87CEEB, #90EE90); /* Sky Blue to Light Green */
+  background-repeat: no-repeat; /* Prevent repetition */
+  background-attachment: fixed; /* Fix gradient to full-screen */
+  background-size: cover; /* Cover the entire viewport */
   color: #333;
   text-align: center;
   margin: 0;
