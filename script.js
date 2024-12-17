@@ -33,7 +33,7 @@ function searchMovies() {
       resultDiv.appendChild(movieBlock);
     });
   } else {
-    resultDiv.innerHTML = '<p>No movies found.</p>';
+    resultDiv.innerHTML = '<p style="color: white; font-size: 1.2rem;">No movies found.</p>';
   }
 }
 
@@ -45,11 +45,13 @@ function fetchDownloadLink(textFilePath, button) {
       return response.text();
     })
     .then(downloadLink => {
+      // Create a temporary link to download
       const tempLink = document.createElement('a');
       tempLink.href = downloadLink.trim();
       tempLink.download = '';
       tempLink.click();
 
+      // Update button text
       button.textContent = 'Downloading...';
       setTimeout(() => (button.textContent = 'Download'), 2000);
     })
