@@ -11,14 +11,20 @@ function searchMovies() {
   const resultDiv = document.getElementById('result');
   resultDiv.innerHTML = ''; // Clear previous results
 
-  if (query === '') return;
+  let filteredMovies;
 
-  const matchedMovies = movieList.filter(movie =>
-    movie.toLowerCase().includes(query)
-  );
+  if (query === 'all') {
+    // Show all movies if 'all' is typed
+    filteredMovies = movieList;
+  } else {
+    // Filter movies based on query
+    filteredMovies = movieList.filter(movie =>
+      movie.toLowerCase().includes(query)
+    );
+  }
 
-  if (matchedMovies.length > 0) {
-    matchedMovies.forEach(movie => {
+  if (filteredMovies.length > 0) {
+    filteredMovies.forEach(movie => {
       const imagePath = `movies/${movie}/movie.jpg`;
       const textFilePath = `movies/${movie}/movie.txt`;
 
