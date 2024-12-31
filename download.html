@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download Movie</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #1c1c1e;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 20px;
+      font-size: 2rem;
+      color: #e62429;
+    }
+
+    .button-container {
+      margin-top: 30px;
+    }
+
+    .button-container button {
+      display: block;
+      margin: 10px auto;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #ffffff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-transform: uppercase;
+      width: 60%;
+      max-width: 400px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .button-container button:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <h1 id="movie-title">Movie Download</h1>
+  <div class="button-container">
+    <button id="download-480p" onclick="downloadMovie('480p')">Download 480p</button>
+    <button id="download-720p" onclick="downloadMovie('720p')">Download 720p</button>
+    <button id="download-1080p" onclick="downloadMovie('1080p')">Download 1080p</button>
+  </div>
+  <script>
+    // Get the movie folder name from local storage
+    const movieFolderName = localStorage.getItem("movieFolderName");
+
+    if (movieFolderName) {
+      // Set the movie title
+      document.getElementById("movie-title").textContent = `Download ${movieFolderName}`;
+    } else {
+      document.getElementById("movie-title").textContent = "No movie selected.";
+    }
+
+    // Function to handle downloads based on quality
+    function downloadMovie(quality) {
+      if (!movieFolderName) {
+        alert("No movie selected.");
+        return;
+      }
+
+      // Construct the download URL based on the movie folder name and quality
+      const downloadUrl = `Movies/${movieFolderName}/${movieFolderName}-${quality}.mp4`;
+
+      // Create a download link and trigger the download
+      const a = document.createElement("a");
+      a.href = downloadUrl;
+      a.download = `${movieFolderName}-${quality}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  </script>
+</body>
+</html>
